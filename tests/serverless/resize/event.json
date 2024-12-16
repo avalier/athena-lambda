@@ -1,0 +1,20 @@
+{
+    "invocationSchemaVersion": "2.0",
+    "invocationId": "YXNkbGZqYWRmaiBhc2RmdW9hZHNmZGpmaGFzbGtkaGZza2RmaAo",
+    "job": {
+        "id": "f3cc4f60-61f6-4a2b-8a21-d07600c373ce",
+        "userArguments": {
+            "testing": "false",
+            "overwrite": "true",
+            "skip_instance_uid_check": "false"
+        }
+    },
+    "tasks": [
+        {
+            "taskId": "dGFza2lkZ29lc2hlcmUK",
+            "s3Key": "scans-anon/ENV_000001",
+            "s3VersionId": "1",
+            "s3Bucket": "artrya-data"
+        }
+    ]
+}

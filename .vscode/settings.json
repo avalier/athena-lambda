@@ -1,0 +1,12 @@
+{
+    "python.testing.pytestArgs": [
+        "tests",
+        "-s",
+        "-v"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
+    "flake8.args": [
+        "--max-line-length=256"
+    ]
+}
