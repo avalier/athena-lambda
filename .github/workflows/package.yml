@@ -28,9 +28,10 @@ jobs:
         run: |
             echo "lambda_name: ${{inputs.lambda_name}}"
             echo "dockerfile_path: ${{inputs.dockerfile_path}}"
+            ls -al
 
       - name: Build Image
-        run: docker build -t avalier/athena-lambda/${{ inputs.lambda_name }}:latest . -f ./${{ inputs.dockerfile_path }}
+        run: docker build -t avalier/athena-lambda/${{ inputs.lambda_name }}:latest . -f ./${{ inputs.dockerfile_path }}/Dockerfile
 
 
 
