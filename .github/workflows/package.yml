@@ -1,0 +1,37 @@
+
+name: Package
+
+on:
+  workflow_dispatch:
+    inputs:
+      lambda_name:
+        description: 'The lambda name (in kebab case)'
+        default: 'logger'
+        required: true
+      dockerfile_path:
+        description: 'A path to the docker file (relative to git root)'
+        default: 'athena_lambda/serverless/logger'
+        required: true
+
+jobs:
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+      
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Info
+        run: |
+            echo "lambda_name: ${{inputs.lambda_name}}"
+            echo "dockerfile_path: ${{inputs.dockerfile_path}}"
+
+      #- name: Build Image
+      #  run: docker build -t avalier/athena-lambda/${{ inputs.lambda_name }}:${{ github.sha }} ./${{ inputs.dockerfile_path }}
+
+
+
+  
