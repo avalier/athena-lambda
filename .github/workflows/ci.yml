@@ -62,7 +62,7 @@ jobs:
 
       - name: Run pytest with coverage
         run: |
-          source ./scripts/setup_localstack.sh
+          source ./.bin/setup_localstack.sh
           export PYTEST_ADDOPTS="--color=yes"
           coverage run --source . --omit="tests/*" -m pytest tests -v
           coverage report -m
