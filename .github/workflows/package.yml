@@ -29,8 +29,8 @@ jobs:
             echo "lambda_name: ${{inputs.lambda_name}}"
             echo "dockerfile_path: ${{inputs.dockerfile_path}}"
 
-      #- name: Build Image
-      #  run: docker build -t avalier/athena-lambda/${{ inputs.lambda_name }}:${{ github.sha }} ./${{ inputs.dockerfile_path }}
+      - name: Build Image
+        run: docker build -t avalier/athena-lambda/${{ inputs.lambda_name }}:latest . -f ./${{ inputs.dockerfile_path }}
 
 
 

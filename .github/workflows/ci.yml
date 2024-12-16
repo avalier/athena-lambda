@@ -9,9 +9,10 @@ env:
   DATABASE_PASSWORD: 'postgres'
 
 on:
-  push:
-    branches:
-      - '**'
+  workflow_dispatch:
+  # push:
+  #   branches:
+  #     - '**'
 
 jobs:
   test:

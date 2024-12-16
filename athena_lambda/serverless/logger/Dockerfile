@@ -1,4 +1,4 @@
-FROM public.ecr.aws/lambda/python:3.13 as lambda_base
+FROM public.ecr.aws/lambda/python:3.13 AS lambda
 
 # Setup poetry #
 RUN pip install --upgrade pip
@@ -12,7 +12,10 @@ RUN poetry config virtualenvs.create false
 RUN poetry install --no-dev --no-interaction --no-root
 
 # Install application #
-COPY athena_lambda ${LAMBDA_TASK_ROOT}/athena_lambda
+COPY athena_lambda ${LAMBDA_TASK_ROOT}
+
+# Debug #
+RUN ls -al
 
 # Entry point #
 CMD ["athena_lambda/serverless/logger/lambda_function.handler"]
