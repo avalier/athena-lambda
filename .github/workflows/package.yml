@@ -58,6 +58,7 @@ jobs:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           #REGISTRY: "${{env.AWS_ACCOUNT_ID}}.dkr.ecr.${{env.AWS_REGION}}.amazonaws.com"
         run: |
+          ./.bin/setup_ecr_repository.sh ${{env.REPOSITORY}}
           docker tag avalier/${{env.REPOSITORY}}:latest ${{env.REGISTRY}}/${{env.REPOSITORY}}:latest
           docker push ${{env.REGISTRY}}/${{env.REPOSITORY}}:latest
         #docker tag avalier/${{env.REPOSITORY}}:latest ${{env.REGISTRY}}/${{env.REPOSITORY}}:${{github.sha}}
