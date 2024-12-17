@@ -1,18 +1,6 @@
-
 name: Package
 
 on:
-  # workflow_dispatch:
-  #   inputs:
-  #     lambda_name:
-  #       description: 'The lambda name (in kebab case)'
-  #       default: 'logger'
-  #       required: true
-  #     dockerfile_path:
-  #       description: 'A path to the docker file (relative to git root)'
-  #       default: 'athena_lambda/serverless/logger'
-  #       required: true
-
   workflow_call:
     inputs:
       lambda_name:
@@ -23,25 +11,18 @@ on:
         description: 'A path to the docker file (relative to git root)'
         required: true
         type: string
-    # secrets:
-    #   personal_access_token:
-    #     required: true
 
 env:
   AWS_ACCOUNT_ID: "025761247733"
   AWS_REGION: "ap-southeast-2"
   AWS_ROLE_NAME: "github-avalier-role"
   REPOSITORY: athena-lambda-${{inputs.lambda_name}}
-  PYTHON_VERSION: "3.13"
-  POETRY_VERSION: "1.8.3"
-  APP_VERSION: "0.1"
 
 jobs:
 
   package:
     name: Package
     runs-on: ubuntu-latest
-    #environment: package
     permissions:
       id-token: write
       contents: read
