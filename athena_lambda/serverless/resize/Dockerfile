@@ -1,11 +1,11 @@
 ARG PYTHON_VERSION="3.13"
+FROM public.ecr.aws/lambda/python:${PYTHON_VERSION} AS lambda
+
+# Args, variables, and labels #
 ARG POETRY_VERSION="1.8.3"
 ARG APP_GIT_SHA=""
 ARG APP_VERSION=""
-
-FROM public.ecr.aws/lambda/python:${PYTHON_VERSION} AS lambda
-
-# Variables & labels #
+RUN echo "POETRY_VERSION: $POETRY_VERSION"
 ENV APP_GIT_SHA=${APP_GIT_SHA}
 ENV APP_VERSION=${APP_VERSION}
 LABEL git_sha="${APP_GIT_SHA}"
