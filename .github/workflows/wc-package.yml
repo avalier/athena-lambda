@@ -41,7 +41,7 @@ jobs:
   package:
     name: Package
     runs-on: ubuntu-latest
-    environment: package
+    #environment: package
     permissions:
       id-token: write
       contents: read
@@ -87,19 +87,19 @@ jobs:
         #docker push ${{env.REGISTRY}}/${{env.REPOSITORY}}:${{github.sha}}
 
   deploy-dev:
-      name: Deploy ${{inputs.lambda_name}} to dev
-      needs: package
-      runs-on: ubuntu-latest
-      environment: dev
-      steps:
-        - name: Deploy
-          run: echo "Deploy ${{inputs.lambda_name}} to dev"
+    name: Deploy to dev
+    needs: package
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - name: Deploy
+        run: echo "Deploy ${{inputs.lambda_name}} to dev"
     
   deploy-tst:
-      name: Deploy ${{inputs.lambda_name}} to tst
-      needs: package
-      runs-on: ubuntu-latest
-      environment: tst
-      steps:
-        - name: Deploy
-          run: echo "Deploying ${{inputs.lambda_name}} to tst"
+    name: Deploy to tst
+    needs: package
+    runs-on: ubuntu-latest
+    environment: tst
+    steps:
+      - name: Deploy
+        run: echo "Deploying ${{inputs.lambda_name}} to tst"
