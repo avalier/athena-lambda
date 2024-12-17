@@ -43,7 +43,7 @@ jobs:
 
       - name: Build Image
         run: |
-          docker build . 
+          docker build . \
             -t avalier/${{env.REPOSITORY}}:latest \
             -f ./${{inputs.dockerfile_path}}/Dockerfile \
             --build-arg PYTHON_VERSION="${{env.PYTHON_VERSION}}" \
