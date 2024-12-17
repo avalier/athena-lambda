@@ -38,8 +38,8 @@ env:
 
 jobs:
 
-  build:
-    name: Build
+  package:
+    name: Package
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -85,4 +85,20 @@ jobs:
         #docker tag avalier/${{env.REPOSITORY}}:latest ${{env.REGISTRY}}/${{env.REPOSITORY}}:${{github.sha}}
         #docker push ${{env.REGISTRY}}/${{env.REPOSITORY}}:${{github.sha}}
 
-  
+  deploy-dev:
+      name: Deploy ${{inputs.lambda_name}} to dev
+      needs: package
+      runs-on: ubuntu-latest
+      environment: dev
+      steps:
+        - name: Deploy
+          run: echo "Deploy ${{inputs.lambda_name}} to dev"
+    
+  deploy-tst:
+      name: Deploy ${{inputs.lambda_name}} to tst
+      needs: package
+      runs-on: ubuntu-latest
+      environment: tst
+      steps:
+        - name: Deploy
+          run: echo "Deploying ${{inputs.lambda_name}} to tst"
