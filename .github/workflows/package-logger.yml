@@ -2,9 +2,6 @@ name: Package Logger
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - '**'
 
 jobs:
   
@@ -19,10 +16,4 @@ jobs:
     with:
       lambda_name: 'logger'
       dockerfile_path: 'athena_lambda/serverless/logger'
-
-  
-    
-
-
-
   
