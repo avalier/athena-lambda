@@ -1,0 +1,75 @@
+
+name: CI
+
+env:
+  PYTHON_VERSION: "3.13"
+  POETRY_VERSION: "1.8.3"
+  DATABASE_NAME: 'postgres'
+  DATABASE_USERNAME: 'postgres'
+  DATABASE_PASSWORD: 'postgres'
+
+on:
+  workflow_call:
+  #workflow_dispatch:
+  # push:
+  #   branches:
+  #     - '**'
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+
+    services:
+      
+      postgres:
+        image: postgres:13.4
+        env:
+          POSTGRES_DB: ${{ env.DATABASE_NAME }}
+          POSTGRES_USER: ${{ env.DATABASE_USERNAME }}
+          POSTGRES_PASSWORD: ${{ env.DATABASE_PASSWORD }}
+        ports:
+          - 5432:5432
+
+      localstack:
+        image: localstack/localstack
+        env:
+          SERVICES: "sqs,dynamodb,s3,kms,iam,cognito,sts,sns,secretsmanager,cloudfront,ssm,events,sqs-query"
+          HOSTNAME: "localstack.local"
+          HOSTNAME_EXTERNAL: "localstack.local"
+        ports:
+          - "127.0.0.1:4510-4559:4510-4559" 
+          - "127.0.0.1:4566:4566"
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup python ${{ env.PYTHON_VERSION }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Setup poetry ${{ env.POETRY_VERSION }}
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 - --version ${{ env.POETRY_VERSION }}
+          export PATH="$HOME/.local/bin:$PATH"
+          poetry --version
+      
+      - name: Install dependencies
+        run: |
+          poetry config virtualenvs.create false
+          poetry install --no-interaction --no-root
+
+      - name: Run pytest with coverage
+        run: |
+          source ./.bin/setup_localstack.sh
+          export PYTEST_ADDOPTS="--color=yes"
+          coverage run --source . --omit="tests/*" -m pytest tests -v
+          coverage report -m
+          
+
+
+
+  

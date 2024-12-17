@@ -2,16 +2,16 @@
 name: Package
 
 on:
-  workflow_dispatch:
-    inputs:
-      lambda_name:
-        description: 'The lambda name (in kebab case)'
-        default: 'logger'
-        required: true
-      dockerfile_path:
-        description: 'A path to the docker file (relative to git root)'
-        default: 'athena_lambda/serverless/logger'
-        required: true
+  # workflow_dispatch:
+  #   inputs:
+  #     lambda_name:
+  #       description: 'The lambda name (in kebab case)'
+  #       default: 'logger'
+  #       required: true
+  #     dockerfile_path:
+  #       description: 'A path to the docker file (relative to git root)'
+  #       default: 'athena_lambda/serverless/logger'
+  #       required: true
 
   workflow_call:
     inputs:

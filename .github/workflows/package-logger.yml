@@ -1,0 +1,28 @@
+name: Package Logger
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  
+  test:
+    name: Test
+    uses: ./.github/workflows/wc-test.yml
+
+  package:
+    name: Logger
+    needs: test
+    uses: ./.github/workflows/wc-package.yml
+    with:
+      lambda_name: 'logger'
+      dockerfile_path: 'athena_lambda/serverless/logger'
+
+  
+    
+
+
+
+  
