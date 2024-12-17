@@ -17,18 +17,25 @@ jobs:
       - name: Build
         run: echo "Testing"
 
-  package:
-    name: Package
+  package_logger:
     needs: test
-    runs-on: ubuntu-latest
-    environment: package
-    steps:
-      - name: Package
-        run: echo "Packaging"
+    uses: ./.github/workflows/package.yml
+    with:
+      lambda_name: 'logger'
+      dockerfile_path: 'athena_lambda/serverless/logger'
+
+  # package2:
+  #   name: Package
+  #   needs: test
+  #   runs-on: ubuntu-latest
+  #   environment: package
+  #   steps:
+  #     - name: Package
+  #       run: echo "Packaging"
     
   deploy-dev:
       name: Deploy to dev
-      needs: package
+      needs: package_logger
       runs-on: ubuntu-latest
       environment: dev
       steps:
@@ -37,7 +44,7 @@ jobs:
     
   deploy-tst:
       name: Deploy to tst
-      needs: package
+      needs: package_logger
       runs-on: ubuntu-latest
       environment: tst
       steps:

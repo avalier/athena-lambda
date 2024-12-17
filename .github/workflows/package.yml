@@ -13,6 +13,20 @@ on:
         default: 'athena_lambda/serverless/logger'
         required: true
 
+  workflow_call:
+    inputs:
+      lambda_name:
+        description: 'The lambda name (in kebab case)'
+        required: true
+        type: string
+      dockerfile_path:
+        description: 'A path to the docker file (relative to git root)'
+        required: true
+        type: string
+    # secrets:
+    #   personal_access_token:
+    #     required: true
+
 env:
   AWS_ACCOUNT_ID: "025761247733"
   AWS_REGION: "ap-southeast-2"
