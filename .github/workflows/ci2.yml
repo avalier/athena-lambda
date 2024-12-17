@@ -1,0 +1,50 @@
+name: CI2
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build
+        run: echo "Testing"
+
+  package:
+    name: Package
+    needs: test
+    runs-on: ubuntu-latest
+    environment: package
+    steps:
+      - name: Package
+        run: echo "Packaging"
+    
+  deploy-dev:
+      name: Deploy to dev
+      needs: package
+      runs-on: ubuntu-latest
+      environment: dev
+      steps:
+        - name: Deploy
+          run: echo "Deploy to dev"
+    
+  deploy-tst:
+      name: Deploy to tst
+      needs: package
+      runs-on: ubuntu-latest
+      environment: tst
+      steps:
+        - name: Deploy
+          run: echo "Deploy to tst"
+    
+
+
+
+  
