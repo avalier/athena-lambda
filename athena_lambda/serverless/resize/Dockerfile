@@ -25,4 +25,4 @@ RUN poetry install --no-dev --no-interaction --no-root
 COPY athena_lambda ${LAMBDA_TASK_ROOT}
 
 # Entry point #
-CMD ["athena_lambda/serverless/logger/lambda_function.handler"]
+CMD ["athena_lambda/serverless/resize/lambda_function.handler"]
