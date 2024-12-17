@@ -17,6 +17,8 @@ env:
   AWS_REGION: "ap-southeast-2"
   AWS_ROLE_NAME: "github-avalier-role"
   REPOSITORY: athena-lambda-${{inputs.lambda_name}}
+  PYTHON_VERSION: "3.13"
+  POETRY_VERSION: "1.8.3"
 
 jobs:
 
