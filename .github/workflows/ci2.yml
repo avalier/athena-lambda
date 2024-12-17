@@ -18,11 +18,20 @@ jobs:
         run: echo "Testing"
 
   package_logger:
+    name: Logger
     needs: test
     uses: ./.github/workflows/package.yml
     with:
       lambda_name: 'logger'
       dockerfile_path: 'athena_lambda/serverless/logger'
+
+  package_resize:
+    name: Resize
+    needs: test
+    uses: ./.github/workflows/package.yml
+    with:
+      lambda_name: 'resize'
+      dockerfile_path: 'athena_lambda/serverless/resize'
 
   
     

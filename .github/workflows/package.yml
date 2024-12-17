@@ -41,6 +41,7 @@ jobs:
   package:
     name: Package
     runs-on: ubuntu-latest
+    environment: package
     permissions:
       id-token: write
       contents: read
