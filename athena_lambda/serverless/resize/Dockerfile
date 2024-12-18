@@ -22,7 +22,7 @@ RUN poetry config virtualenvs.create false
 RUN poetry install --no-dev --no-interaction --no-root
 
 # Install application #
-COPY athena_lambda ${LAMBDA_TASK_ROOT}
+COPY athena_lambda ${LAMBDA_TASK_ROOT}/athena_lambda
 
 # Entry point #
 CMD ["athena_lambda/serverless/resize/lambda_function.handler"]
