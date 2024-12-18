@@ -1,20 +1,38 @@
 {
-    "invocationSchemaVersion": "2.0",
-    "invocationId": "YXNkbGZqYWRmaiBhc2RmdW9hZHNmZGpmaGFzbGtkaGZza2RmaAo",
-    "job": {
-        "id": "f3cc4f60-61f6-4a2b-8a21-d07600c373ce",
-        "userArguments": {
-            "testing": "false",
-            "overwrite": "true",
-            "skip_instance_uid_check": "false"
-        }
-    },
-    "tasks": [
+    "Records": [
         {
-            "taskId": "dGFza2lkZ29lc2hlcmUK",
-            "s3Key": "scans-anon/ENV_000001",
-            "s3VersionId": "1",
-            "s3Bucket": "artrya-data"
+            "eventVersion": "2.1",
+            "eventSource": "aws:s3",
+            "awsRegion": "ap-southeast-2",
+            "eventTime": "2024-12-18T02:59:43.228Z",
+            "eventName": "ObjectCreated:Put",
+            "userIdentity": {
+                "principalId": "AWS:AROAQL735OH25TSUOED2J:nick.hadfield"
+            },
+            "requestParameters": {
+                "sourceIPAddress": "220.245.182.126"
+            },
+            "responseElements": {
+                "x-amz-request-id": "FQP99RZM69RS4M2P",
+                "x-amz-id-2": "Hm9eB+FhhFzDnGnURgvbyPp6KTIooSTXgSHayNzVCzKcAXjKwoYmH3puDmj/hRVbe6eJulAsKMgDFaEQzTl206WJTLkkVh8X1xqYavd2o3Q="
+            },
+            "s3": {
+                "s3SchemaVersion": "1.0",
+                "configurationId": "d0175f43-1f87-4d4e-850a-6073a9dc78aa",
+                "bucket": {
+                    "name": "avalier-athena-img",
+                    "ownerIdentity": {
+                        "principalId": "A3TKAUOCWMWZ6C"
+                    },
+                    "arn": "arn:aws:s3:::avalier-athena-img"
+                },
+                "object": {
+                    "key": "gingerbread.png",
+                    "size": 1868844,
+                    "eTag": "3cd6f9eaa3ff438a25fa6526f3042092",
+                    "sequencer": "0067623A9EA0B81BF7"
+                }
+            }
         }
     ]
 }

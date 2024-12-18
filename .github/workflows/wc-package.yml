@@ -77,12 +77,25 @@ jobs:
     steps:
       - name: Deploy
         run: echo "Deploy ${{inputs.lambda_name}} to dev"
-    
-  deploy-tst:
-    name: Deploy to tst
-    needs: package
-    runs-on: ubuntu-latest
-    environment: tst
-    steps:
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{env.AWS_ACCOUNT_ID}}:role/${{env.AWS_ROLE_NAME}}
+          aws-region: ${{env.AWS_REGION}}
+
       - name: Deploy
-        run: echo "Deploying ${{inputs.lambda_name}} to tst"
+        run: |
+          aws lambda update-function-code \
+            --region "$AWS_REGION" \
+            --function-name "${{env.REPOSITORY}}" \
+            --image-uri "$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/${{env.REPOSITORY}}:latest"
+    
+  # deploy-tst:
+  #   name: Deploy to tst
+  #   needs: package
+  #   runs-on: ubuntu-latest
+  #   environment: tst
+  #   steps:
+  #     - name: Deploy
+  #       run: echo "Deploying ${{inputs.lambda_name}} to tst"

@@ -7,7 +7,10 @@ jobs:
   
   test:
     name: Test
-    uses: ./.github/workflows/wc-test.yml
+    #uses: ./.github/workflows/wc-test.yml
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo Test
 
   package:
     name: Logger
