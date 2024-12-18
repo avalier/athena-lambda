@@ -73,6 +73,9 @@ jobs:
     name: Deploy to dev
     needs: package
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     environment: dev
     steps:
       - name: Deploy
