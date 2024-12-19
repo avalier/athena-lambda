@@ -39,6 +39,7 @@ jobs:
 
       - name: Info
         run: |
+            echo "github_ref: ${{env.github_ref}}}"
             echo "lambda_name: ${{inputs.lambda_name}}"
             echo "dockerfile_path: ${{inputs.dockerfile_path}}"
             echo "app version: $APP_VERSION"
@@ -102,11 +103,12 @@ jobs:
             --function-name "${{env.REPOSITORY}}" \
             --image-uri "$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/${{env.REPOSITORY}}:latest"
     
-  # deploy-tst:
-  #   name: Deploy to tst
-  #   needs: package
-  #   runs-on: ubuntu-latest
-  #   environment: tst
-  #   steps:
-  #     - name: Deploy
-  #       run: echo "Deploying ${{inputs.lambda_name}} to tst"
+  deploy-tst:
+    name: Deploy to tst
+    needs: package
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/release/')
+    environment: tst
+    steps:
+      - name: Deploy
+        run: echo "Deploying ${{inputs.lambda_name}} to tst"
