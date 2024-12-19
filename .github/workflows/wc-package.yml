@@ -39,6 +39,7 @@ jobs:
 
       - name: Info
         run: |
+            echo "GITHUB_REF: $GITHUB_REF"
             echo "github_ref: ${{github.ref}}"
             echo "app_version: $APP_VERSION"
             echo "app_git_sha: ${{github.sha}}"
