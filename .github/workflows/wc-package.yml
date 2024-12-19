@@ -40,7 +40,8 @@ jobs:
       - name: Info
         run: |
             echo "github_ref: ${{github.ref}}"
-            echo "app version: ${{env.APP_VERSION}}"
+            echo "app_version: $APP_VERSION"
+            echo "app_git_sha: ${{github.sha}}"
             echo "lambda_name: ${{inputs.lambda_name}}"
             echo "dockerfile_path: ${{inputs.dockerfile_path}}"
             ls -al
@@ -72,10 +73,10 @@ jobs:
           ./.bin/setup_ecr_repository.sh ${{env.REPOSITORY}}
           docker tag avalier/${{env.REPOSITORY}}:latest ${{env.REGISTRY}}/${{env.REPOSITORY}}:latest
           docker push ${{env.REGISTRY}}/${{env.REPOSITORY}}:latest
-          if [ "${{env.APP_VERSION}} ]
+          if [ "$APP_VERSION" ]
           then
-            docker tag avalier/${{env.REPOSITORY}}:latest ${{env.REGISTRY}}/${{env.REPOSITORY}}:${{env.APP_VERSION}}
-            docker push ${{env.REGISTRY}}/${{env.REPOSITORY}}:${{env.APP_VERSION}}
+            docker tag avalier/${{env.REPOSITORY}}:latest ${{env.REGISTRY}}/${{env.REPOSITORY}}:$APP_VERSION
+            docker push ${{env.REGISTRY}}/${{env.REPOSITORY}}:$APP_VERSION
           fi
 
   deploy-dev:
