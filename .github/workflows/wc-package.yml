@@ -33,29 +33,27 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Version
-        run: |
-          source ./.bin/get-app-version.sh
-
       - name: Info
         run: |
-            echo "GITHUB_REF: $GITHUB_REF"
-            echo "github_ref: ${{github.ref}}"
-            echo "app_version: $APP_VERSION"
-            echo "app_git_sha: ${{github.sha}}"
-            echo "lambda_name: ${{inputs.lambda_name}}"
-            echo "dockerfile_path: ${{inputs.dockerfile_path}}"
-            ls -al
+          source ./.bin/get-app-version.sh
+          echo "github_ref: ${{github.ref}}"
+          echo "GITHUB_REF: $GITHUB_REF"
+          echo "GITHUB_REF: $APP_VERSION"
+          echo "app_git_sha: ${{github.sha}}"
+          echo "lambda_name: ${{inputs.lambda_name}}"
+          echo "dockerfile_path: ${{inputs.dockerfile_path}}"
+          ls -al
 
       - name: Build Image
         run: |
+          source ./.bin/get-app-version.sh
           docker build . \
             -t avalier/${{env.REPOSITORY}}:latest \
             -f ./${{inputs.dockerfile_path}}/Dockerfile \
             --build-arg PYTHON_VERSION="${{env.PYTHON_VERSION}}" \
             --build-arg POETRY_VERSION="${{env.POETRY_VERSION}}" \
             --build-arg APP_GIT_SHA="${{github.sha}}" \
-            --build-arg APP_VERSION=""
+            --build-arg APP_VERSION="$APP_VERSION"
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -71,6 +69,7 @@ jobs:
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         run: |
+          source ./.bin/get-app-version.sh
           ./.bin/setup_ecr_repository.sh ${{env.REPOSITORY}}
           docker tag avalier/${{env.REPOSITORY}}:latest ${{env.REGISTRY}}/${{env.REPOSITORY}}:latest
           docker push ${{env.REGISTRY}}/${{env.REPOSITORY}}:latest
