@@ -33,10 +33,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Version
+        run: |
+          source ./.bin/get-app-version.sh
+
       - name: Info
         run: |
             echo "lambda_name: ${{inputs.lambda_name}}"
             echo "dockerfile_path: ${{inputs.dockerfile_path}}"
+            echo "app version: $APP_VERSION"
             ls -al
 
       - name: Build Image
@@ -66,8 +71,11 @@ jobs:
           ./.bin/setup_ecr_repository.sh ${{env.REPOSITORY}}
           docker tag avalier/${{env.REPOSITORY}}:latest ${{env.REGISTRY}}/${{env.REPOSITORY}}:latest
           docker push ${{env.REGISTRY}}/${{env.REPOSITORY}}:latest
-        #docker tag avalier/${{env.REPOSITORY}}:latest ${{env.REGISTRY}}/${{env.REPOSITORY}}:${{github.sha}}
-        #docker push ${{env.REGISTRY}}/${{env.REPOSITORY}}:${{github.sha}}
+          if [ "$APP_VERSION" ]
+          then
+            docker tag avalier/${{env.REPOSITORY}}:latest ${{env.REGISTRY}}/${{env.REPOSITORY}}:$APP_VERSION
+            docker push ${{env.REGISTRY}}/${{env.REPOSITORY}}:$APP_VERSION
+          fi
 
   deploy-dev:
     name: Deploy to dev
