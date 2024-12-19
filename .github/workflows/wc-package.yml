@@ -36,9 +36,7 @@ jobs:
       - name: Info
         run: |
           source ./.bin/get-app-version.sh
-          echo "github_ref: ${{github.ref}}"
-          echo "GITHUB_REF: $GITHUB_REF"
-          echo "GITHUB_REF: $APP_VERSION"
+          echo "app_version: $APP_VERSION"
           echo "app_git_sha: ${{github.sha}}"
           echo "lambda_name: ${{inputs.lambda_name}}"
           echo "dockerfile_path: ${{inputs.dockerfile_path}}"

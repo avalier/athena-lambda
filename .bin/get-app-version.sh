@@ -5,8 +5,6 @@ if [ -z "$GITHUB_REF" ]
 then
     echo "Missing ENV: GITHUB_REF" 
     exit 1
-else
-    echo "GITHUB_REF: $GITHUB_REF"
 fi
 
 if [[ $GITHUB_REF == refs/tags/release/* ]]
