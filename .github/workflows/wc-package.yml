@@ -85,7 +85,7 @@ jobs:
     permissions:
       id-token: write
       contents: read
-    environment: dev
+    #environment: dev
     steps:
       - name: Deploy
         run: echo "Deploy ${{inputs.lambda_name}} to dev"
