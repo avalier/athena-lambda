@@ -40,9 +40,9 @@ jobs:
       - name: Info
         run: |
             echo "github_ref: ${{github.ref}}"
+            echo "app version: ${{env.APP_VERSION}}"
             echo "lambda_name: ${{inputs.lambda_name}}"
             echo "dockerfile_path: ${{inputs.dockerfile_path}}"
-            echo "app version: $APP_VERSION"
             ls -al
 
       - name: Build Image
@@ -72,10 +72,10 @@ jobs:
           ./.bin/setup_ecr_repository.sh ${{env.REPOSITORY}}
           docker tag avalier/${{env.REPOSITORY}}:latest ${{env.REGISTRY}}/${{env.REPOSITORY}}:latest
           docker push ${{env.REGISTRY}}/${{env.REPOSITORY}}:latest
-          if [ "$APP_VERSION" ]
+          if [ "${{env.APP_VERSION}} ]
           then
-            docker tag avalier/${{env.REPOSITORY}}:latest ${{env.REGISTRY}}/${{env.REPOSITORY}}:$APP_VERSION
-            docker push ${{env.REGISTRY}}/${{env.REPOSITORY}}:$APP_VERSION
+            docker tag avalier/${{env.REPOSITORY}}:latest ${{env.REGISTRY}}/${{env.REPOSITORY}}:${{env.APP_VERSION}}
+            docker push ${{env.REGISTRY}}/${{env.REPOSITORY}}:${{env.APP_VERSION}}
           fi
 
   deploy-dev:
