@@ -39,7 +39,7 @@ jobs:
 
       - name: Info
         run: |
-            echo "github_ref: ${{env.github_ref}}}"
+            echo "github_ref: ${{github.ref}}"
             echo "lambda_name: ${{inputs.lambda_name}}"
             echo "dockerfile_path: ${{inputs.dockerfile_path}}"
             echo "app version: $APP_VERSION"
